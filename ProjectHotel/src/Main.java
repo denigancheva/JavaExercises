@@ -25,12 +25,12 @@ public class Main {
             switch(answer){
                 case 1:
                     for(Employee waiter :waiters){
-                        System.out.println(waiter.ShowBasicInfo());
+                        System.out.println(waiter.showBasicInfo());
                     }
                     break;
                 case 2:
                     for(Employee housemaid :housemaids){
-                        System.out.println(housemaid.ShowBasicInfo());
+                        System.out.println(housemaid.showBasicInfo());
                     }
                     break;
             }
@@ -43,137 +43,3 @@ public class Main {
 
 
 
- interface Paid {
-    public abstract float CalculateSalary();
-    public abstract boolean AddBonus();
-
-}
-
- interface Working{
-    public abstract void ChangeShifts();
-    public abstract int CalculateRemainingLeavedays();
-}
-
- abstract class Employee implements Paid,Working
-{
-    public String name;
-    public int age;
-    public float startingSalary;
-    public String hireDate;
-
-    public Employee(String name, int age, float startingSalary, String hireDate)
-    {
-        this.name = name;
-        this.age = age;
-        this.startingSalary=startingSalary;
-        this.hireDate=hireDate;
-    }
-
-    public abstract int CalculateWorkingHours();
-
-    public String ShowBasicInfo()
-    {
-        return "Name: " + name + ", age: " + age +", hireDate: " + hireDate;
-    }
-
-
-}
-
- class Waiter extends Employee
-{
-    public float tips;
-    public int shifts;
-    public int shiftLength;
-    public int shiftsToDo;
-
-
-    public Waiter(String name, int age, float startingSalary, String hireDate, float tips, int shifts, int shiftLength, int shiftsToDo )
-    {
-        super(name, age, startingSalary, hireDate);
-        this.tips= tips;
-        this.shifts = shifts;
-        this.shiftLength=shiftLength;
-        this.shiftsToDo = shiftsToDo;
-
-    }
-
-    public void ServeShifts(int shifts)
-    {
-        this.shifts+=shifts;
-    }
-
-    @Override
-    public int CalculateWorkingHours() {
-        return shifts*shiftLength;
-
-    }
-
-    @Override
-    public float CalculateSalary() {
-        return startingSalary + tips;
-    }
-
-    @Override
-    public boolean AddBonus() {
-        if (this.shiftsToDo>=this.shifts){
-            return false;
-        }
-        else return true;
-
-    }
-
-    @Override
-    public void ChangeShifts() {
-
-    }
-
-    @Override
-    public int CalculateRemainingLeavedays() {
-        return 0;
-    }
-}
-
-class Housemaid extends Employee
-{
-    public int shifts;
-    public int[] rooms;
-    public int roomsDone;
-    public Housemaid(String name, int age, float startingSalary, String hireDate,int shifts, int[] rooms, int roomsDone )
-    {
-        super(name, age, startingSalary, hireDate);
-        this.shifts = shifts;
-        this.rooms = rooms;
-        this.roomsDone = roomsDone;
-
-    }
-    public void DoRooms(int count)
-    {
-        this.roomsDone+=count;
-    }
-
-    @Override
-    public int CalculateWorkingHours() {
-        return shifts*8;
-    }
-
-    @Override
-    public float CalculateSalary() {
-        return startingSalary;
-    }
-
-    @Override
-    public boolean AddBonus() {
-        if(roomsDone>rooms.length) return true;
-        else return false;
-    }
-
-    @Override
-    public void ChangeShifts() {
-
-    }
-
-    @Override
-    public int CalculateRemainingLeavedays() {
-        return 0;
-    }
-}
