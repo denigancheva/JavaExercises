@@ -1,5 +1,7 @@
 public abstract class Employee implements Paid,Working {
 
+    private int id;
+    private static int nextId = 1;
         private String name;
         private int age;
         private float startingSalary;
@@ -7,12 +9,16 @@ public abstract class Employee implements Paid,Working {
 
         public Employee(String name, int age, float startingSalary, String hireDate)
         {
+            this.id = nextId++;
             setName(name);
             setAge(age);
             setStartingSalary(startingSalary);
             setHireDate(hireDate);
         }
 
+    public int getId() {
+        return id;
+    }
     public String getName() {
         return name;
     }
